@@ -19,7 +19,7 @@ app.use("/user", UserRoutes);
 app.use("/post", PostRoutes);
 app.use("/contact", ContactRoutes);
 
-var PORT = process.env.PORT || 7000;
+var PORT = process.env.PORT || 7001;
 app.listen(PORT, () =>
   console.log(`EXPRESS Server Started at Port No: ${PORT}`)
 );
