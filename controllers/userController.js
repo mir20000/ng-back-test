@@ -1,9 +1,11 @@
 const UserModel = require("../models/userModel");
+const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const Encode_Key = `${process.env.SECRET_KEY}`;
 dotenv.config();
+
 const UserCTRL = {
   signup: async (req, res, next) => {
     const { name, email, password, mobile } = req.body;
@@ -74,12 +76,13 @@ const UserCTRL = {
       });
     }
   },
-  userList: async (req, res) => {
+  userDetails: async (req, res) => {
+    const { id } = req.params;
     try {
-      const AllUser = await UserModel.find();
+      const SingleUser = await UserModel.findById(id);
       res.status(200).json({
-        message: "All user List",
-        AllUser,
+        message: `User of this ${id} found`,
+        User: SingleUser,
       });
     } catch (error) {
       res.status(404).json({

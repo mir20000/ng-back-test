@@ -1,4 +1,5 @@
 const PostModel = require("../models/postModel");
+const mongoose = require('mongoose');
 
 const PostCTRL = {
   getPosts: async (req, res, next) => {
@@ -28,13 +29,13 @@ const PostCTRL = {
       });
     }
   },
-  getPostBytime: async (req, res, next) => {},
+  getPostBytime: async (req, res, next) => { },
   createPosts: async (req, res, next) => {
     const PostMsg = req.body;
-    req.id = "uuid1";
+    // req.id = "uuid1";
     const newPostMsg = new PostModel({
       ...PostMsg,
-      createrid: req.id,
+      createrid: req.body.creatorid,
       createdAt: new Date().toISOString(),
     });
 
@@ -107,6 +108,7 @@ const PostCTRL = {
   },
   deletePosts: async (req, res, next) => {
     const { id } = req.params;
+    console.log(id)
     try {
       if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({
